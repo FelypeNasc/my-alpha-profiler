@@ -16,10 +16,12 @@
 
 #### 4 - Acesse o navegador pela url: http://localhost:3000/
 
-### 5 - Na pasta "backend" crie o arquivo ".env" e insira as seguintes informações
+### 5 - Instale o dotenv usando: npm install dotenv --save
 
-PGUSER='postgres'
-PGHOST='lab.dudeful.com'
-PGDATABASE='react'
-PGPASSWORD='toRyca123'
-PGPORT=5432
+### 6 - Na pasta "backend" crie o arquivo ".env" e insira as seguintes informações
+
+### PGUSER='postgres'
+### PGHOST='lab.dudeful.com'
+### PGDATABASE='react'
+### PGPASSWORD='toRyca123'
+### PGPORT=5432
