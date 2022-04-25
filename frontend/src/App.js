@@ -7,15 +7,15 @@ import {
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-console.log(Home)
+
 function App() {
   return (
     <div>
       <Router>
         <Routes>
 
-          <Route path="/home" component={<Home />}/>
-          <Route path="/" component={<Login />} />
+          <Route path="/home" element={<Home />}/>
+          <Route path="/" element={<Login />} />
 
         </Routes>
           {/* <Route
