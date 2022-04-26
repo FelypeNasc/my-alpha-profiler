@@ -1,4 +1,7 @@
-const validateInputs = (req, res, next) => {
+import pg from 'pg';
+const { Client } = pg;
+
+const validateInputs = async (req, res, next) => {
 	const { username, email, password, birthday } = req.body.data;
 
 	const regex = {
@@ -19,6 +22,21 @@ const validateInputs = (req, res, next) => {
 	) {
 		return next(new Error('invalid inputs'));
 	}
+
+	//---QUERY THE DATABASE FOR THE USERNAME (IF EXISTS, THROW AN ERROR)
+	const client = new Client();
+	await client.connect();
+
+	const query = `SELECT * FROM public.users WHERE username=$1`;
+	const results = await client.query(query, [username]);
+	console.log(results.rows);
+
+	if (results.rows[0]) {
+		return next(new Error('this username already exists!'));
+	}
+
+	await client.end();
+	//---
 
 	const birthdayISO = new Date(birthday).toISOString().split('T')[0];
 
