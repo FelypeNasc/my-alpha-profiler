@@ -7,6 +7,8 @@ import {
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import EditProfile from "./pages/EditProfile"
+import SignUp from "./pages/SignUp"
 
 function App() {
   return (
@@ -14,8 +16,10 @@ function App() {
       <Router>
         <Routes>
 
-          <Route path="/home" element={<Home />}/>
           <Route path="/" element={<Login />} />
+          <Route path="/home" element={<Home />}/>
+          <Route path="/edit-profile" element={<EditProfile />}/>
+          <Route path="/signup" element={<SignUp/>}/>
 
         </Routes>
           {/* <Route
