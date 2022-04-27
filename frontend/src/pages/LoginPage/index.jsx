@@ -35,14 +35,14 @@ function Login() {
       <h1>Login</h1>
       <form id="login-form">
         <input
-          class="login-input"
+          className="login-input"
           type="text"
           id="username"
           placeholder="Username"
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
-          class="login-input"
+          className="login-input"
           type="password"
           id="password"
           placeholder="Password"
