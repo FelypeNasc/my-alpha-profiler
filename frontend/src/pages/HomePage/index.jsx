@@ -1,4 +1,9 @@
-import {PositiveButton, NegativeButton} from '../../components/exporterOfComponents'
+import {
+  PositiveButton,
+  NegativeButton,
+} from "../../components/exporterOfComponents";
+
+import "./style.css";
 
 function Home() {
   return (
