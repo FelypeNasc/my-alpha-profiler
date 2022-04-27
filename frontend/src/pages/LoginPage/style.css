@@ -13,7 +13,7 @@ body {
   flex-direction: column;
 }
 
-form {
+#login-form {
   width: 100%;
   max-width: 400px;
   display: flex;
