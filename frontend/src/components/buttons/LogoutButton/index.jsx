@@ -6,9 +6,9 @@ function LogoutButton(props) {
     e.preventDefault();
   };
   return (
-    <button id="logout-button" onClick={handleSubmit}>
-      <NavLink to="/login">Logout</NavLink>
-    </button>
+    <NavLink to="/login" >
+      <button id="logout-button" onClick={handleSubmit}>Logout</button>
+    </NavLink>
   );
 }
 
