@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/auth";
 import "./style.css";
 
 function LoginPage() {
-  const { authenticated, login } = useContext(AuthContext);
+  const { login, error } = useContext(AuthContext);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -40,6 +40,7 @@ function LoginPage() {
         <p>
           Don't have an account? <NavLink to="/signup"> Signup </NavLink>
         </p>
+        {error && <p className="error">{error}</p>}
       </form>
     </div>
   );

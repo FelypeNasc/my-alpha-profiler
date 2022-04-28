@@ -15,13 +15,19 @@ body {
 }
 
 .login-input {
-  width: 70%;
+  width: 50%;
   padding: 10px;
   margin: 10px 0;
   border: none;
   border-radius: 5px;
   background-color: #fff;
   color: #333;
+}
+
+.error {
+  color: #f34b4b;
+  font-size: 12px;
+  margin: 0;
 }
 
 a {
