@@ -1,0 +1,31 @@
+#logout-button {
+  background-color: #f5f5f5;
+  border: 1px solid #dcdcdc;
+  border-radius: 3px;
+  color: #333;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1;
+  padding: 6px 12px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: auto;
+}
+
+#logout-button:hover {
+  background-color: #e6e6e6;
+  border-color: #adadad;
+  color: #333;
+}
+
+#logout-button:active {
+  background-color: #e6e6e6;
+  border-color: #adadad;
+  color: #333;
+  outline: 0;
+}
