@@ -4,7 +4,6 @@ import pg from "pg";
 const { Client } = pg;
 
 router.get("/", async (req, res) => {
-	const client = new Client();
 	let query;
 	let conexao = false;
 	let table = req.query.table;
@@ -32,18 +31,23 @@ router.get("/", async (req, res) => {
 	}
 
 	if (conexao) {
+		connectGet(query);
+	} else {
+		res.send("pesquisa inválida");
+		return false;
+	}
+
+	async function connectGet(query) {
+		const client = new Client();
+		await client.connect().then(() => console.log("conectado ao banco"));
+		console.log(query);
 		await client
-			.connect()
-			.then(() => console.log("conectado ao banco"))
-			.then(() => client.query(query))
+			.query(query)
 			.then((results) => {
 				res.send(results.rows);
 			})
 			.catch((e) => console.log(e))
 			.finally(() => client.end(), console.log("cliente fechado"));
-	} else {
-		res.send("pesquisa inválida");
-		return false;
 	}
 });
 
