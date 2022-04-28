@@ -11,9 +11,9 @@ function HomePage() {
       <main id="home-page-main">
         <div id="profile-picture"></div>
         <div id="profile-info">
-          <h2 id="username">FelypeNasc</h2>
-          <p id="email">felype.nasc@hotmail.com</p>
-          <p id="birthdate">Birthdate: 19/02/1996</p>
+          <h2 id="username">Pedro Cardoso</h2>
+          <p id="email">pedrão_brabo@email.com</p>
+          <p id="birthdate">Birthdate: 01/01/1900</p>
         </div>
         <div className="navigate-buttons">
           <button id="edit-button">Edit Profile</button>
