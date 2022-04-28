@@ -17,9 +17,8 @@ function LoginPage() {
     login(username, password);
   };
   return (
-    <div id="login-page">
-      <h1>PROFILER</h1>
-      <p>{String(authenticated)}</p>
+    <div className="page" id="login-page">
+      <h1>Profiler</h1>
       <form id="login-form">
         <input
           className="login-input"
