@@ -1,14 +1,20 @@
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 function LogoutButton(props) {
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    navigate("/login");
   };
   return (
-    <NavLink to="/login" >
-      <button id="logout-button" onClick={handleSubmit}>Logout</button>
-    </NavLink>
+    <button id="logout-button" onClick={handleSubmit}>
+      Logout
+    </button>
   );
 }
 

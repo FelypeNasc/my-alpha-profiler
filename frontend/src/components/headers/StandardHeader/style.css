@@ -1,0 +1,21 @@
+#standard-header {
+  width: 100vw;
+  background-color: #090d12;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+}
+
+#standard-header > button {
+  position: absolute;
+  right: 10px;
+}
+
+#profiler-header {
+  font-family: "Righteous", cursive;
+  font-size: 30px;
+  margin: 0;
+  color: #fafafa;
+}
