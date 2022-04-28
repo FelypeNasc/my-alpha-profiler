@@ -4,7 +4,7 @@ body {
   color: #fafafa;
   font-family: "Roboto", sans-serif;
 }
-#login {
+#login-page {
   height: 100vh;
   width: 100vw;
   display: flex;

@@ -1,38 +1,25 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AuthContext } from "../../context/auth";
 
 import "./style.css";
 
-function Login() {
+function LoginPage() {
+  const { authenticated, login } = useContext(AuthContext);
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const apiUrl = "http://localhost:3001/";
-    fetch(apiUrl + "login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === "success") {
-          localStorage.setItem("token", data.token);
-          window.location.href = "/";
-        } else {
-          alert("Invalid username or password");
-        }
-      });
+    console.log("Submit", { username, password });
+
+    login(username, password);
   };
   return (
-    <div id="login">
-      <h1>Login</h1>
+    <div id="login-page">
+      <h1>PROFILER</h1>
+      <p>{String(authenticated)}</p>
       <form id="login-form">
         <input
           className="login-input"
@@ -59,4 +46,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginPage;
