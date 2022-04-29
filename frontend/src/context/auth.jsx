@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext } from "react";
 
 import { useNavigate } from "react-router-dom";
-import { validateUsername } from "../modules/inputVerification";
+import { usernameValidate } from "../modules/inputValidation";
 
 export const AuthContext = createContext();
 
@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const login = (username, password) => {
-    if (validateUsername(username) && password.length > 0) {
+    if (usernameValidate(username) && password.length > 0) {
       setIsLoading(true);
       const loggedUser = {
         username,
@@ -50,6 +50,8 @@ export const AuthProvider = ({ children }) => {
       //       console.log(error);
       //     }
       //   );
+    } else {
+      setError("Invalid username or password");
     }
   };
 
