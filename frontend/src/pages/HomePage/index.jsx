@@ -3,11 +3,14 @@ import { useState } from "react";
 import "./style.css";
 
 import StandardHeader from "../../components/headers/StandardHeader";
+import LogoutButton from "../../components/buttons/LogoutButton";
 
 function HomePage() {
   return (
     <div className="page" id="home-page">
-      <StandardHeader />
+      <StandardHeader>
+        <LogoutButton />
+      </StandardHeader>
       <main id="home-page-main">
         <div id="profile-picture"></div>
         <div id="profile-info">
