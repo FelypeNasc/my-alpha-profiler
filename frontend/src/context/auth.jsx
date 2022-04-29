@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext } from "react";
 
 import { useNavigate } from "react-router-dom";
-import { validateUsername, validatePassword } from "../modules/inputVerification";
+import { validateUsername } from "../modules/inputVerification";
 
 export const AuthContext = createContext();
 
