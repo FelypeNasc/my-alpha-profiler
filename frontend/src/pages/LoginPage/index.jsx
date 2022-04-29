@@ -38,7 +38,7 @@ function LoginPage() {
           Login
         </button>
         <p>
-          Don't have an account? <NavLink to="/signup"> Signup </NavLink>
+          Don't have an account? <NavLink to="/register"> Register </NavLink>
         </p>
         {error && <p className="error">{error}</p>}
       </form>
