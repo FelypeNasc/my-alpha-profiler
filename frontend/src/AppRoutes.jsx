@@ -7,6 +7,7 @@ import EditProfilePage from "./pages/EditProfilePage";
 import RegisterPage from "./pages/RegisterPage";
 
 import { AuthProvider, AuthContext } from "./context/auth";
+import { RegisterProvider } from "./context/register";
 
 const AppRoutes = () => {
   const Private = ({ children }) => {
@@ -40,44 +41,46 @@ const AppRoutes = () => {
     <div>
       <Router>
         <AuthProvider>
-          <Routes>
-            <Route
-              exact
-              path="/"
-              element={
-                <Private>
-                  <HomePage />
-                </Private>
-              }
-            />
-            <Route
-              exact
-              path="/login"
-              element={
-                <LoginPrivate>
-                  <LoginPage />
-                </LoginPrivate>
-              }
-            />
-            <Route
-              exact
-              path="/register"
-              element={
-                <LoginPrivate>
-                  <RegisterPage />
-                </LoginPrivate>
-              }
-            />
-            <Route
-              exact
-              path="/edit-profile"
-              element={
-                <Private>
-                  <EditProfilePage />
-                </Private>
-              }
-            />
-          </Routes>
+          <RegisterProvider>
+            <Routes>
+              <Route
+                exact
+                path="/"
+                element={
+                  <Private>
+                    <HomePage />
+                  </Private>
+                }
+              />
+              <Route
+                exact
+                path="/login"
+                element={
+                  <LoginPrivate>
+                    <LoginPage />
+                  </LoginPrivate>
+                }
+              />
+              <Route
+                exact
+                path="/register"
+                element={
+                  <LoginPrivate>
+                    <RegisterPage />
+                  </LoginPrivate>
+                }
+              />
+              <Route
+                exact
+                path="/edit-profile"
+                element={
+                  <Private>
+                    <EditProfilePage />
+                  </Private>
+                }
+              />
+            </Routes>
+          </RegisterProvider>
         </AuthProvider>
       </Router>
     </div>
