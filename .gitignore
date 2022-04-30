@@ -1,8 +1,5 @@
 # node
 node_modules
 package-lock.json
-<<<<<<< HEAD
 .env
 env
-=======
->>>>>>> 3a0798bbd9795ac94c90a15eaca52a69ca0c1cb1
