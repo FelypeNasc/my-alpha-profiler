@@ -3,6 +3,7 @@ import express from "express";
 const app = express();
 const port = 3001;
 import "dotenv/config";
+app.use(express.json());
 
 // middlewares
 
