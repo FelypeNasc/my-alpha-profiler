@@ -25,7 +25,7 @@ const createUser = async (data) => {
     const jsonwebtoken = jwt.sign(
       {
         email: data.email,
-        birthday: data.birthdate,
+        birthdate: data.birthdate,
       },
       process.env.JWT_SECRET,
       //FIXME raise the time to expire, 2min is only for testing
