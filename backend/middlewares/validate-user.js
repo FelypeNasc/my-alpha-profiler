@@ -8,12 +8,12 @@ const validateUser = async (req, res, next) => {
   await client.connect();
 
   try {
-    if (!req.body.data || !req.body.data.email || !req.body.data.password) {
+    if (!req.body.data || !req.body.data.username || !req.body.data.password) {
       throw new Error('unsufficient inputs!');
     }
 
-    const query = `SELECT * FROM public.users WHERE email=$1 AND deleted IS NOT TRUE`;
-    const results = await client.query(query, [req.body.data.email]);
+    const query = `SELECT * FROM public.users WHERE username=$1 AND deleted IS NOT TRUE`;
+    const results = await client.query(query, [req.body.data.username]);
 
     const user = results.rows[0];
 
@@ -32,6 +32,7 @@ const validateUser = async (req, res, next) => {
       data: {
         username: user.username,
         email: user.email,
+        photo: user.photo,
         birthdate: new Date(user.birthdate).toISOString().split('T')[0],
         isAuth: true,
       },
