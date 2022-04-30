@@ -5,7 +5,7 @@ const router = Router();
 const { Client } = pg;
 
 router.delete('/', validateToken, async (req, res) => {
-  res.send(req.user)
+  res.send(req.user);
   // console.log('delete initiated');
   // async function deleteUser(user) {
   //   const client = new Client();

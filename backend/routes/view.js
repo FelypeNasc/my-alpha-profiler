@@ -1,10 +1,9 @@
 import { Router } from 'express';
 import pg from 'pg';
-import validateToken from '../middlewares/validate-token.js';
 const router = Router();
 const { Client } = pg;
 
-router.get('/', validateToken, async (req, res) => {
+router.get('/', async (req, res) => {
   let query;
   let conexao = false;
   let table = req.query.table;
@@ -38,14 +37,20 @@ router.get('/', validateToken, async (req, res) => {
     return false;
   }
 
-  async function connectGet(query) {
+  async function connectGet(myquery) {
     const client = new Client();
     await client.connect().then(() => console.log('conectado ao banco'));
-    console.log(query);
+    console.log(myquery);
     await client
-      .query(query)
+      .query(myquery)
       .then((results) => {
-        res.send(results.rows);
+        const user = results.rows[0];
+        res.send({
+          username: user.username,
+          email: user.email,
+          photo: user.photo,
+          birthdate: new Date(user.birthdate).toISOString().split('T')[0],
+        });
       })
       .catch((e) => console.log(e))
       .finally(() => client.end(), console.log('cliente fechado'));

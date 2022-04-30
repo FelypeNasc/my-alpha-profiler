@@ -9,7 +9,7 @@ const validateToken = (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     //FIXME test if data structures is wrong
-    if (!token || req.body.data.email !== decoded.email) {
+    if (!token || req.body.data.username !== decoded.username) {
       throw new Error(
         'the user does not have authorization for this request or the token has expired, please login again!'
       );
