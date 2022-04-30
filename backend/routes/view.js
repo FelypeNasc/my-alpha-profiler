@@ -44,7 +44,13 @@ router.get('/', async (req, res) => {
     await client
       .query(myquery)
       .then((results) => {
-        res.send(results.rows);
+        const user = results.rows[0];
+        res.send({
+          username: user.username,
+          email: user.email,
+          photo: user.photo,
+          birthdate: new Date(user.birthdate).toISOString().split('T')[0],
+        });
       })
       .catch((e) => console.log(e))
       .finally(() => client.end(), console.log('cliente fechado'));
