@@ -1,20 +1,22 @@
-// config
 import express from 'express';
-
-// middlewares
-
-// routes
-import auth from './routes/auth';
-import register from './routes/register';
-import edit from './routes/edit';
-import deleteUser from './routes/delete';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import auth from './routes/auth.js';
+import register from './routes/register.js';
+import deleteUser from './routes/delete.js';
+import viewRoute from './routes/view.js';
 
 const app = express();
 const port = 3001;
 
+// middlewares
+app.use(cors());
+app.use(express.json());
+app.use(cookieParser());
+
 app.use('/auth', auth);
 app.use('/register', register);
-app.use('/edit', edit);
-app.use('/deleteUser', deleteUser);
+app.use('/delete', deleteUser);
+app.use('/view', viewRoute);
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
