@@ -8,16 +8,16 @@ import "dotenv/config";
 
 // routes
 /* import auth from "./routes/auth";
-import register from "./routes/register";
-import edit from "./routes/edit";*/
+import register from "./routes/register";*/
+import edit from "./routes/edit.js";
 import deleteU from "./routes/delete.js";
 import view from "./routes/view.js";
 const viewRoute = view;
 const deleteUser = deleteU;
 
 /* app.use("/auth", auth);
-app.use("/register", register);
-app.use("/edit", edit);*/
+app.use("/register", register);*/
+app.use("/edit", edit);
 app.use("/delete", deleteUser);
 app.use("/view", viewRoute);
 

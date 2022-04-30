@@ -37,12 +37,12 @@ router.get("/", async (req, res) => {
 		return false;
 	}
 
-	async function connectGet(query) {
+	async function connectGet(myquery) {
 		const client = new Client();
 		await client.connect().then(() => console.log("conectado ao banco"));
-		console.log(query);
+		console.log(myquery);
 		await client
-			.query(query)
+			.query(myquery)
 			.then((results) => {
 				res.send(results.rows);
 			})
