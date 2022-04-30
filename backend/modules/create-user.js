@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import bcrypt from 'bcrypt';
 import pg from 'pg';
+import bcrypt from 'bcrypt';
 const { Client } = pg;
 const saltRounds = 12;
 dotenv.config();
@@ -24,7 +24,7 @@ const createUser = async (data) => {
 
     const jsonwebtoken = jwt.sign(
       {
-        email: data.email,
+        username: data.username,
         birthdate: data.birthdate,
       },
       process.env.JWT_SECRET,

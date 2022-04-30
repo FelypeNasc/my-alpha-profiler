@@ -1,10 +1,9 @@
 import { Router } from 'express';
 import pg from 'pg';
-import validateToken from '../middlewares/validate-token.js';
 const router = Router();
 const { Client } = pg;
 
-router.get('/', validateToken, async (req, res) => {
+router.get('/', async (req, res) => {
   let query;
   let conexao = false;
   let table = req.query.table;
