@@ -1,9 +1,3 @@
-export function fullnameValidate(fullname) {
-  const fullnameRegex = /^[a-zA-Z ]{2,30}$/; // 2-30 characters, letters, spaces
-
-  return fullnameRegex.test(fullname);
-}
-
 export function usernameValidate(username) {
   const usernameRegex = /^[a-zA-Z0-9_]{6,20}$/; // 6-20 characters, letters, numbers, and underscores
 
@@ -14,10 +8,6 @@ export function passwordValidate(password) {
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,}$/; // 8+ characters, at least one lowercase letter, one uppercase letter, one number, special characters allowed
 
   return passwordRegex.test(password);
-}
-
-export function confirmPasswordValidate(password, confirmPassword) {
-  return password === confirmPassword;
 }
 
 export function emailValidate(email) {
@@ -33,24 +23,11 @@ export function birthdayValidate(birthday) {
   return birthdayRegex.test(birthday);
 }
 
-export default function registerValidate(
-  fullname,
-  username,
-  password,
-  confirmPassword,
-  email,
-  birthday
-) {
-  const fullnameValidated = fullnameValidate(fullname);
+export default function registerValidate(username, password, email, birthday) {
   const usernameValidated = usernameValidate(username);
   const passwordValidated = passwordValidate(password);
-  const confirmPasswordValidated = confirmPasswordValidate(password, confirmPassword);
   const emailValidated = emailValidate(email);
   const birthdayValidated = birthdayValidate(birthday);
-
-  if (!!fullnameValidated) {
-    return { error: "Fullname is invalid" };
-  }
 
   if (!!usernameValidated) {
     return { error: "Username is invalid" };
@@ -60,10 +37,6 @@ export default function registerValidate(
     return { error: "Password is invalid" };
   }
 
-  if (!!confirmPasswordValidated) {
-    return { error: "Passwords do not match" };
-  }
-
   if (!!emailValidated) {
     return { error: "Email is invalid" };
   }
@@ -71,4 +44,6 @@ export default function registerValidate(
   if (!!birthdayValidated) {
     return { error: "Birthday is invalid" };
   }
+
+  return { isValid: true };
 }
