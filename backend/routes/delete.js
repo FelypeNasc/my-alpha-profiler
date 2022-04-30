@@ -4,9 +4,6 @@ import validateToken from '../middlewares/validate-token.js';
 const router = Router();
 const { Client } = pg;
 
-// modules
-
-// route
 router.delete('/', validateToken, async (req, res) => {
   console.log('delete initiated');
   async function deleteUser(user) {
