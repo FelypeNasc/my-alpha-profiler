@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import auth from './routes/auth';
-import register from './routes/register';
+import auth from './routes/auth.js';
+import register from './routes/register.js';
 import deleteUser from './routes/delete.js';
 import viewRoute from './routes/view.js';
 
