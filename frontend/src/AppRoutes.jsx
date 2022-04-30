@@ -41,46 +41,47 @@ const AppRoutes = () => {
     <div>
       <Router>
         <AuthProvider>
-          <RegisterProvider>
-            <Routes>
-              <Route
-                exact
-                path="/"
-                element={
-                  <Private>
-                    <HomePage />
-                  </Private>
-                }
-              />
-              <Route
-                exact
-                path="/login"
-                element={
-                  <LoginPrivate>
-                    <LoginPage />
-                  </LoginPrivate>
-                }
-              />
-              <Route
-                exact
-                path="/register"
-                element={
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <Private>
+                  <HomePage />
+                </Private>
+              }
+            />
+            <Route
+              exact
+              path="/login"
+              element={
+                <LoginPrivate>
+                  <LoginPage />
+                </LoginPrivate>
+              }
+            />
+
+            <Route
+              exact
+              path="/register"
+              element={
+                <RegisterProvider>
                   <LoginPrivate>
                     <RegisterPage />
                   </LoginPrivate>
-                }
-              />
-              <Route
-                exact
-                path="/edit-profile"
-                element={
-                  <Private>
-                    <EditProfilePage />
-                  </Private>
-                }
-              />
-            </Routes>
-          </RegisterProvider>
+                </RegisterProvider>
+              }
+            />
+            <Route
+              exact
+              path="/edit-profile"
+              element={
+                <Private>
+                  <EditProfilePage />
+                </Private>
+              }
+            />
+          </Routes>
         </AuthProvider>
       </Router>
     </div>
