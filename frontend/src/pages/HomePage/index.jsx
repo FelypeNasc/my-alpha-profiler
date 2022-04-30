@@ -9,7 +9,7 @@ import { useContext } from "react";
 function HomePage() {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-  const { username, email, birthday, picURL } = user;
+  const { username, email, birthday, photo } = user;
 
   const handleEditProfile = () => {
     navigate("/edit-profile");
@@ -22,10 +22,13 @@ function HomePage() {
       </StandardHeader>
       <main id="home-page-main">
         <div id="profile-picture">
-          {picURL ? (
-            <img src={picURL} alt="Profile" />
+          {photo ? (
+            <img src={photo} alt="Profile" />
           ) : (
-            <img src="https://t4.ftcdn.net/jpg/03/31/69/91/360_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg" alt="Profile" />
+            <img
+              src="https://t4.ftcdn.net/jpg/03/31/69/91/360_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg"
+              alt="Profile"
+            />
           )}
         </div>
         <div id="profile-info">

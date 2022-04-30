@@ -6,7 +6,7 @@ import StandardHeader from "../../components/headers/StandardHeader";
 import "./style.css";
 
 function RegisterPage() {
-  console.log(useContext(RegisterContext))
+  console.log(useContext(RegisterContext));
   const { register } = useContext(RegisterContext);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -22,7 +22,7 @@ function RegisterPage() {
     if (password !== confirmPassword) {
       setError("Passwords do not match");
     } else {
-      // register(username, password, email, birthday);
+      register(username, password, email, birthday);
 
       setUsername("");
       setEmail("");
@@ -38,52 +38,54 @@ function RegisterPage() {
   return (
     <div className="page" id="register-page">
       <StandardHeader />
-        <main>
-          <h2>Register</h2>
+      <main>
+        <h2>Register</h2>
 
-          <form id="register-form">
-            <div className="register-input-container">
-              <input
-                className="reg-input"
-                type="text"
-                placeholder="Username"
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              <input
-                className="reg-input"
-                type="email"
-                placeholder="Email"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <input
-                className="reg-input"
-                type="password"
-                placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <input
-                className="reg-input"
-                type="password"
-                placeholder="Confirm Password"
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-              <input
-                className="reg-input"
-                type="text"
-                id="reg-birthday"
-                placeholder="Birthday"
-                onChange={(e) => console.log(e.target.value)}
-                onFocus={(e) => (e.target.type = "date")}
-                onBlur={(e) => (e.target.type = "text")}
-              />
-            </div>
-            <div className="button-container">
-              <button id="send">Register</button>
-            </div>
-            <div className="error-container">{error && <p className="error">{error}</p>}</div>
-            <p></p>
-          </form>
-        </main>
+        <form id="register-form">
+          <div className="register-input-container">
+            <input
+              className="reg-input"
+              type="text"
+              placeholder="Username"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+              className="reg-input"
+              type="email"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              className="reg-input"
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <input
+              className="reg-input"
+              type="password"
+              placeholder="Confirm Password"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <input
+              className="reg-input"
+              type="text"
+              id="reg-birthday"
+              placeholder="Birthday"
+              onChange={(e) => console.log(e.target.value)}
+              onFocus={(e) => (e.target.type = "date")}
+              onBlur={(e) => (e.target.type = "text")}
+            />
+          </div>
+          <div className="button-container">
+            <button id="send" onSubmit={handleSubmitRegister}>
+              Register
+            </button>
+          </div>
+          <div className="error-container">{error && <p className="error">{error}</p>}</div>
+          <p></p>
+        </form>
+      </main>
     </div>
   );
 }
