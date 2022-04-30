@@ -11,7 +11,7 @@ const generateToken = async (user) => {
   try {
     const jsonwebtoken = jwt.sign(
       {
-        email: user.data.email,
+        username: user.data.username,
         birthdate: user.data.birthdate,
       },
       process.env.JWT_SECRET,
