@@ -7,52 +7,51 @@ const saltRounds = 12;
 dotenv.config();
 
 const createUser = async (data) => {
-	try {
-		const client = new Client();
-		await client.connect();
+  const client = new Client();
+  await client.connect();
 
-		const querySelect = `SELECT * FROM public.users WHERE email=$1`;
-		const resultsSelect = await client.query(querySelect, [data.email]);
-		console.log(resultsSelect.rows);
+  try {
+    const querySelect = `SELECT * FROM public.users WHERE email=$1`;
+    const resultsSelect = await client.query(querySelect, [data.email]);
 
-		const user = results.rows[0];
+    const user = resultsSelect.rows[0];
 
-		if (user) {
-			return { userCreated: false };
-		}
+    if (user) {
+      throw new Error('this user email is already registered!');
+    }
 
-		const hash = bcrypt.hashSync(req.body.password, saltRounds);
+    const hash = bcrypt.hashSync(data.password, saltRounds);
 
-		const jsonwebtoken = jwt.sign(
-			{
-				email: req.body.email,
-				birthday: req.body.birthday,
-			},
-			process.env.JWT_SECRET,
-			//FIXME raise the time to expire, 1min is only for testing
-			{ expiresIn: 60 * 1 }
-		);
+    const jsonwebtoken = jwt.sign(
+      {
+        email: data.email,
+        birthday: data.birthdate,
+      },
+      process.env.JWT_SECRET,
+      //FIXME raise the time to expire, 2min is only for testing
+      { expiresIn: 60 * 2 }
+    );
 
-		const queryInsert = `INSERT INTO public.users (email, password, fullName, birthday, picture, token, deletada, data_criacao) VALUES ($1, $2, $3, $4, $5, $6, false, current_timestamp)`;
-		const values = [
-			req.body.email,
-			hash,
-			req.body.fullName,
-			req.body.birthday,
-			req.body.picture,
-			jsonwebtoken,
-		];
+    const queryInsert = `INSERT INTO public.users (username, email, password, birthdate, token, deleted) VALUES ($1, $2, $3, $4, $5, $6)`;
+    const values = [data.username, data.email, hash, data.birthdate, jsonwebtoken, 'false'];
 
-		const resultsInsert = await client.query(queryInsert, values);
-		console.log(resultsInsert.rows);
+    const resultsInsert = await client.query(queryInsert, values);
 
-		return { data: user, userCreated: true };
-	} catch (error) {
-		console.error(error);
-		await client.query('ROLLBACK');
-	} finally {
-		await client.end();
-	}
+    return {
+      token: jsonwebtoken,
+      user: {
+        username: data.username,
+        email: data.email,
+        birthdate: data.birthdate,
+        userCreated: true,
+      },
+    };
+  } catch (error) {
+    await client.query('ROLLBACK');
+    return { error };
+  } finally {
+    await client.end();
+  }
 };
 
 export default createUser;

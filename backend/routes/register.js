@@ -3,17 +3,22 @@ import createUser from '../modules/create-user.js';
 import validateInputs from '../middlewares/validate-inputs.js';
 const router = Router();
 
-router.post('/', validateInputs, (req, res) => {
+router.post('/', validateInputs, async (req, res) => {
   try {
-    const response = createUser(req.user);
+    const response = await createUser(req.user);
 
-    if (!response.userCreated) {
-      throw new Error('oops! something went wrong');
+    if (response.error || req.error) {
+      throw new Error(response.error.message);
     }
 
-    res.send({ userCreated: true });
+    res
+      .cookie('token', response.token, {
+        httpOnly: true,
+      })
+      .send(response.user);
   } catch (error) {
     console.error(error);
+    //FIXME dev only! stop sending entire error messages to the client
     res.status(error.code || 400).send({ error: error.message });
   }
 });
