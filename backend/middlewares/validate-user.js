@@ -4,17 +4,16 @@ const { Client } = pg;
 const saltRounds = 12;
 
 const validateUser = async (req, res, next) => {
+  const client = new Client();
+  await client.connect();
+
   try {
     if (!req.body.data || !req.body.data.email || !req.body.data.password) {
-      throw new Error('the inputs provided are not valid!');
+      throw new Error('unsufficient inputs!');
     }
-
-    const client = new Client();
-    await client.connect();
 
     const query = `SELECT * FROM public.users WHERE email=$1 AND deleted IS NOT TRUE`;
     const results = await client.query(query, [req.body.data.email]);
-    console.log(results.rows);
 
     const user = results.rows[0];
 
@@ -28,11 +27,20 @@ const validateUser = async (req, res, next) => {
       throw new Error('wrong password!');
     }
 
-    req.user = { data: user, isAuth: true };
+    req.user = {
+      id: user.id,
+      data: {
+        username: user.username,
+        email: user.email,
+        birthdate: new Date(user.birthdate).toISOString().split('T')[0],
+        isAuth: true,
+      },
+    };
+
     return next();
   } catch (error) {
     console.error(error);
-    return next(error);
+    res.status(error.code || 400).send({ error: error.message });
   } finally {
     await client.end();
   }
