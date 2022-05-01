@@ -19,3 +19,24 @@
 ### 5 - Instale o dotenv usando: npm install dotenv --save
 
 
+
+
+#### Delete route response codes:
+##### 200 - delete succesful 
+##### 401 - wrong username and/or password
+##### 500 - server internal failure
+
+#### front-end fetch template
+
+>let response = await fetch ('/route', {
+> method: 'METHOD',
+>  body: JSON.stringify({
+>
+>  }),
+>  headers: {
+>    'content-type': 'application/json'
+>  }
+>})
+>.then( resp => { return resp.text(); })
+>.then ( res => { console.log('response: '); console.log(res); return res; })
+>.catch( e => { console.log('fetch error: '); console.log(e); return null; } );
