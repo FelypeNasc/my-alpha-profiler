@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import pg from 'pg';
-import validateToken from '../middlewares/validate-token.js';
+import mw from '../middlewares/validate-token.js';
 
 const router = Router();
 const { Client } = pg;
 
-router.delete('/', validateToken, async (req, res) => {
+router.delete('/', mw, async (req, res) => {
   
   console.log('DELETE ROUTE --> initiated');
  
