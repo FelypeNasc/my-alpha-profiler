@@ -17,32 +17,32 @@ export function emailValidate(email) {
   return emailRegex.test(email);
 }
 
-export function birthdayValidate(birthday) {
+export function birthdayValidate(birthdate) {
   const birthdayRegex = /^\d{4}-\d{2}-\d{2}$/; // YYYY-MM-DD
 
-  return birthdayRegex.test(birthday);
+  return birthdayRegex.test(birthdate);
 }
 
-export default function registerValidate(username, password, email, birthday) {
+export default function registerValidate(username, password, email, birthdate) {
   const usernameValidated = usernameValidate(username);
   const passwordValidated = passwordValidate(password);
   const emailValidated = emailValidate(email);
-  const birthdayValidated = birthdayValidate(birthday);
+  const birthdayValidated = birthdayValidate(birthdate);
 
   if (!!usernameValidated) {
-    return { error: "Username is invalid" };
+    return { error: 'Username is invalid' };
   }
 
   if (!!passwordValidated) {
-    return { error: "Password is invalid" };
+    return { error: 'Password is invalid' };
   }
 
   if (!!emailValidated) {
-    return { error: "Email is invalid" };
+    return { error: 'Email is invalid' };
   }
 
   if (!!birthdayValidated) {
-    return { error: "Birthday is invalid" };
+    return { error: 'Birthday is invalid' };
   }
 
   return { isValid: true };
