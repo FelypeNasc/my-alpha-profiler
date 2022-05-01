@@ -21,12 +21,12 @@
 
 
 
-#### Delete route response codes:
-##### 200 - delete succesful 
-##### 401 - wrong username and/or password
-##### 500 - server internal failure
+## Delete route response codes:
+#### 200 - delete succesful 
+#### 401 - wrong username and/or password
+#### 500 - server internal failure
 
-#### front-end fetch template
+## front-end fetch template
 
 >let response = await fetch ('/route', {
 > method: 'METHOD',
