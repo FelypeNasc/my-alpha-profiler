@@ -1,6 +1,6 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext } from 'react';
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 // import registerValidate from "../modules/inputValidation";
 
 export const RegisterContext = createContext();
@@ -11,9 +11,9 @@ export const RegisterProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const register = (username, password, email, birthday) => {
-    console.log("Register func")
-    //   const validation = registerValidate(username, password, email, birthday);
+  const register = (username, password, email, birthdate) => {
+    console.log('Register func');
+    //   const validation = registerValidate(username, password, email, birthdate);
     //   if (validation.isValid) {
     //     setIsLoading(true);
     //     const apiUrl = "http://localhost:3001/";
@@ -22,7 +22,7 @@ export const RegisterProvider = ({ children }) => {
     //       headers: {
     //         "Content-Type": "application/json",
     //       },
-    //       body: JSON.stringify({ username, password, email, birthday }),
+    //       body: JSON.stringify({ username, password, email, birthdate }),
     //     })
     //       .then((response) => response.json())
     //       .then((data) => {

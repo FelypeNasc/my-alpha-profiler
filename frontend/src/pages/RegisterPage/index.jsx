@@ -1,38 +1,38 @@
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { RegisterContext } from "../../context/register";
+import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { RegisterContext } from '../../context/register';
 
-import StandardHeader from "../../components/headers/StandardHeader";
-import "./style.css";
+import StandardHeader from '../../components/headers/StandardHeader';
+import './style.css';
 
 function RegisterPage() {
   console.log(useContext(RegisterContext));
   const { register } = useContext(RegisterContext);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [birthday, setBirthday] = useState("");
-  const [error, setError] = useState("");
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [birthdate, setBirthdate] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   function handleSubmitRegister(event) {
     event.preventDefault();
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError('Passwords do not match');
     } else {
-      register(username, password, email, birthday);
+      register(username, password, email, birthdate);
 
-      setUsername("");
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
-      setBirthday("");
+      setUsername('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+      setBirthdate('');
 
-      navigate("/");
+      navigate('/');
 
-      setError("");
+      setError('');
     }
   }
   return (
@@ -70,11 +70,11 @@ function RegisterPage() {
             <input
               className="reg-input"
               type="text"
-              id="reg-birthday"
-              placeholder="Birthday"
-              onChange={(e) => console.log(e.target.value)}
-              onFocus={(e) => (e.target.type = "date")}
-              onBlur={(e) => (e.target.type = "text")}
+              id="reg-birthdate"
+              placeholder="Birthdate"
+              onChange={(e) => setBirthdate(e.target.value)}
+              onFocus={(e) => (e.target.type = 'date')}
+              onBlur={(e) => (e.target.type = 'text')}
             />
           </div>
           <div className="button-container">
