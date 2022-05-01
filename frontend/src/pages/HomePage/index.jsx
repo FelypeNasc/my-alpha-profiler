@@ -1,18 +1,33 @@
-import "./style.css";
-import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import StandardHeader from "../../components/headers/StandardHeader";
-import LogoutButton from "../../components/buttons/LogoutButton";
-import { AuthContext } from "../../context/auth";
-import { useContext } from "react";
+import StandardHeader from '../../components/headers/StandardHeader';
+import LogoutButton from '../../components/buttons/LogoutButton';
+import { AuthContext } from '../../context/auth';
+import './style.css';
 
 function HomePage() {
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
-  const { username, email, birthday, photo } = user;
+  const { user, authenticated } = useContext(AuthContext);
+  const [userData, setUserData] = useState({});
 
-  const handleEditProfile = () => {
-    navigate("/edit-profile");
+  useEffect(() => {
+    (async () => {
+      if (!authenticated) {
+        navigate('/login');
+      } else {
+        const api = 'http://localhost:3001/';
+        const response = await fetch(`${api}view?table=username&id=${user.username}`);
+        const data = await response.json();
+        console.log(data);
+        setUserData(data);
+      }
+    })();
+  }, [authenticated, navigate, user]);
+
+  const handleNavEdit = (e) => {
+    e.preventDefault();
+    navigate('/edit-profile');
   };
 
   return (
@@ -22,8 +37,8 @@ function HomePage() {
       </StandardHeader>
       <main id="home-page-main">
         <div id="profile-picture">
-          {photo ? (
-            <img src={photo} alt="Profile" />
+          {userData.photo ? (
+            <img src={userData.photo} alt="Profile" />
           ) : (
             <img
               src="https://t4.ftcdn.net/jpg/03/31/69/91/360_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg"
@@ -32,12 +47,14 @@ function HomePage() {
           )}
         </div>
         <div id="profile-info">
-          <h2 id="username">{username}</h2>
-          <p id="email">Email: {email}</p>
-          <p id="birthdate">Birthdate: {birthday}</p>
+          <h2 id="username">{userData.username}</h2>
+          <p id="email">Email: {userData.email}</p>
+          <p id="birthdate">
+            Birthdate: {new Date(userData.birthdate).toLocaleDateString('pt-br')}
+          </p>
         </div>
         <div className="navigate-buttons">
-          <button id="edit-button" onClick={handleEditProfile}>
+          <button id="edit-button" onClick={handleNavEdit}>
             Edit Profile
           </button>
         </div>
