@@ -8,6 +8,7 @@
 
 #register-form {
   width: 60%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -36,7 +37,7 @@
   justify-content: center;
 }
 
-#reg-birthday {
-  font-family: "Roboto", sans-serif;
+#reg-birthdate {
+  font-family: 'Roboto', sans-serif;
   color: #707070;
 }
