@@ -16,7 +16,7 @@ const generateToken = async (user) => {
       },
       process.env.JWT_SECRET,
       //FIXME raise the time to expire, 2min is only for testing
-      { expiresIn: 60 * 2 }
+      { expiresIn: 60 * 100 }
     );
 
     const query = `UPDATE public.users SET token=$1 WHERE id=$2 RETURNING *`;

@@ -11,7 +11,7 @@ const validateToken = (req, res, next) => {
     //FIXME test if data structures is wrong
     if (!token || req.body.data.username !== decoded.username) {
       throw new Error(
-        'the user does not have authorization for this request or the token has expired, please login again!'
+        'The user does not have authorization for this request or the token has expired, please login again!'
       );
     }
 

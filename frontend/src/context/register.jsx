@@ -11,8 +11,15 @@ export const RegisterProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const register = async (username, password, confirmPassword, email, birthdate) => {
-    const validation = registerValidate(username, password, confirmPassword, email, birthdate);
+  const register = async (username, password, confirmPassword, email, confirmEmail, birthdate) => {
+    const validation = registerValidate(
+      username,
+      password,
+      confirmPassword,
+      email,
+      confirmEmail,
+      birthdate
+    );
     if (!!validation.isValid) {
       setIsLoading(true);
       setError(null);
