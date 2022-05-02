@@ -18,20 +18,25 @@
 
 ### 5 - Instale o dotenv usando: npm install dotenv --save
 
-### 6 - Na pasta "backend" crie o arquivo ".env" e insira as seguintes informações
 
-### PGUSER='postgres'
 
-### PGHOST='lab.dudeful.com'
 
-### PGDATABASE='react'
+## Delete route response codes:
+#### 200 - delete succesful 
+#### 401 - wrong username and/or password
+#### 500 - server internal failure
 
-### PGPASSWORD='toRyca123'
+## front-end fetch template
 
-### PGPORT=5432
-
-#### 4 - Acesse o navegador pela url: http://localhost:3000/
-
-### 5 - Instale o dotenv usando: npm install dotenv --save
-
-### 6 - Na pasta "backend" crie o arquivo ".env" e insira as seguintes informações
+>let response = await fetch ('/route', {
+> method: 'METHOD',
+>  body: JSON.stringify({
+>
+>  }),
+>  headers: {
+>    'content-type': 'application/json'
+>  }
+>})
+>.then( resp => { return resp.text(); })
+>.then ( res => { console.log('response: '); console.log(res); return res; })
+>.catch( e => { console.log('fetch error: '); console.log(e); return null; } );
