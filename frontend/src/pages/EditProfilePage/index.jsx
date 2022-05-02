@@ -1,14 +1,14 @@
 import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { EditContext } from '../../context/edit';
+import { AuthContext } from '../../context/auth';
 
 import StandardHeader from '../../components/headers/StandardHeader';
 import LogoutButton from '../../components/buttons/LogoutButton';
-import validateEditRequest from '../../modules/validateEditRequest';
 import './style.css';
 
 function EditProfilePage() {
   const { deleteAccount, editProfile, error } = useContext(EditContext);
+  const { user } = useContext(AuthContext);
   const defaultPhoto =
     'https://t4.ftcdn.net/jpg/03/31/69/91/360_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg';
   const [photo, setPhoto] = useState('');
@@ -16,7 +16,7 @@ function EditProfilePage() {
   const [confirmEmail, setConfirmEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const navigate = useNavigate();
+
   const handleChangeImage = (e) => {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -27,9 +27,13 @@ function EditProfilePage() {
   };
   const handleSubmitChanges = (e) => {
     e.preventDefault();
+    console.log({ photo, email, confirmEmail, password, confirmPassword });
+
+    editProfile(photo, email, confirmEmail, password, confirmPassword);
   };
   const handleSubmitDelete = (e) => {
     e.preventDefault();
+    deleteAccount(user.username);
   };
   return (
     <div className="page" id="edit-profile-page">
@@ -39,7 +43,7 @@ function EditProfilePage() {
       <main>
         <h2>Edit My Profile</h2>
         <form id="edit-profile-form">
-          <div className="image-upload">
+          <div className="photo-input-container">
             <label htmlFor="photo-input">
               <img src={photo ? photo : defaultPhoto} alt="Default" id="photo-preview" />
             </label>
@@ -49,7 +53,7 @@ function EditProfilePage() {
             <input
               className="edit-profile-input"
               type="email"
-              placeholder="Email"
+              placeholder="New Email"
               onChange={(e) => setEmail(e.target.value)}
             />
             <input
@@ -62,7 +66,7 @@ function EditProfilePage() {
             <input
               className="edit-profile-input"
               type="password"
-              placeholder="Password"
+              placeholder="New Password"
               onChange={(e) => setPassword(e.target.value)}
             />
             <input
@@ -80,7 +84,11 @@ function EditProfilePage() {
               Save Changes
             </button>
           </div>
-          <div className="error-container">{error && <p className="error">{error}</p>}</div>
+          {error && (
+            <div className="edit-error-container">
+              <p className="edit-error">{error}</p>
+            </div>
+          )}
           <p></p>
         </form>
       </main>

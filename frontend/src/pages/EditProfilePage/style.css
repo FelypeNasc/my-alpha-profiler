@@ -54,16 +54,28 @@
   background-color: #a10a01;
 }
 
+.photo-input-container {
+  margin: 20px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 #photo-input {
   display: none;
+}
+
+#photo-input-label {
+  cursor: pointer;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
 }
 
 #photo-preview {
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  display: block;
-  margin: 20px auto 40px;
   cursor: pointer;
   transition: 0.1s;
   object-fit: cover;
@@ -71,4 +83,19 @@
 
 #photo-preview:hover {
   opacity: 0.5;
+}
+
+.edit-error-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.edit-error {
+  color: #f34b4b;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 5px;
+  width: 55%;
 }
