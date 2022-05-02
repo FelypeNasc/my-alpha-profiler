@@ -39,7 +39,7 @@ export function emailValidate(email, confirmEmail) {
   if (email !== confirmEmail) {
     return {
       isValid: false,
-      error: 'Passwords do not match',
+      error: 'Emails do not match',
     };
   } else if (!emailRegex.test(email)) {
     return {
@@ -110,12 +110,35 @@ export default function registerValidate(
   };
 }
 
-export function editValidate(photo, password, confirmPassword, email, confirmEmail) {
+export function editValidate(photo, email, confirmEmail, password, confirmPassword) {
   const photoValidation = photoValidate(photo);
   const passwordValidation = passwordValidate(password, confirmPassword);
   const emailValidation = emailValidate(email, confirmEmail);
+  let error = null;
+  let isValid = true;
+  if (photo === '' && password === '' && email === '') {
+    error = 'Please at least fill one field';
+    isValid = false;
+  } else {
+    if (photo !== '') {
+      if (!photoValidation.isValid) {
+        error = photoValidation.error;
+        isValid = false;
+      }
+    } else if (password !== '') {
+      if (!passwordValidation.isValid) {
+        error = passwordValidation.error;
+        isValid = false;
+      }
+    } else if (email !== '') {
+      if (!emailValidation.isValid) {
+        error = emailValidation.error;
+        isValid = false;
+      }
+    }
+  }
   return {
-    isValid: photoValidation.isValid && passwordValidation.isValid && emailValidation.isValid,
-    error: photoValidation.error || passwordValidation.error || emailValidation.error,
+    isValid,
+    error,
   };
 }
