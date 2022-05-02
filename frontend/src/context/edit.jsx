@@ -1,12 +1,14 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, useEffect, createContext, useContext } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { editValidate } from '../modules/inputValidation';
+import { AuthContext } from '../context/auth';
 
 export const EditContext = createContext();
 export const EditProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const { user, setUser } = useContext(AuthContext);
+  // const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -16,7 +18,7 @@ export const EditProvider = ({ children }) => {
       setUser(JSON.parse(recoveredUser));
       setIsLoading(false);
     }
-  }, []);
+  }, [setUser]);
 
   const deleteAccount = async () => {
     setIsLoading(true);
@@ -24,11 +26,11 @@ export const EditProvider = ({ children }) => {
     const api = 'http://localhost:3001/';
     try {
       const response = await fetch(`${api}delete`, {
-        method: 'POST',
+        method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          credentials: 'include',
         },
+        credentials: 'include',
         body: JSON.stringify({
           data: {
             username: user.username,
@@ -61,8 +63,8 @@ export const EditProvider = ({ children }) => {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
-            credentials: 'include',
           },
+          credentials: 'include',
           body: JSON.stringify({
             data: {
               username: user.username,
@@ -77,6 +79,7 @@ export const EditProvider = ({ children }) => {
           throw new Error(data.error);
         } else {
           localStorage.setItem('user', JSON.stringify(data));
+          console.log(data);
           setUser(data);
           setIsLoading(false);
           navigate('/');
