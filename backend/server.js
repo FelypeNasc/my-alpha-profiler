@@ -17,7 +17,7 @@ app.use(
     credentials: true,
   })
 );
-app.use(express.json({ limit: '3 mb' }));
+app.use(express.json({ limit: '8 mb' }));
 app.use(cookieParser());
 
 app.use('/auth', auth);
