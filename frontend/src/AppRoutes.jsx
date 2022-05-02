@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import React, { useContext } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
-import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
-import EditProfilePage from "./pages/EditProfilePage";
-import RegisterPage from "./pages/RegisterPage";
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import EditProfilePage from './pages/EditProfilePage';
+import RegisterPage from './pages/RegisterPage';
 
-import { AuthProvider, AuthContext } from "./context/auth";
+import { AuthProvider, AuthContext } from './context/auth';
+import { RegisterProvider } from './context/register';
+import { EditProvider } from './context/edit';
 
 const AppRoutes = () => {
   const Private = ({ children }) => {
@@ -17,7 +19,7 @@ const AppRoutes = () => {
     }
 
     if (!authenticated) {
-      return <Navigate to={"/login"} />;
+      return <Navigate to={'/login'} />;
     }
 
     return children;
@@ -31,7 +33,7 @@ const AppRoutes = () => {
     }
 
     if (authenticated) {
-      return <Navigate to={"/"} />;
+      return <Navigate to={'/'} />;
     }
 
     return children;
@@ -59,22 +61,27 @@ const AppRoutes = () => {
                 </LoginPrivate>
               }
             />
+
             <Route
               exact
               path="/register"
               element={
-                <LoginPrivate>
-                  <RegisterPage />
-                </LoginPrivate>
+                <RegisterProvider>
+                  <LoginPrivate>
+                    <RegisterPage />
+                  </LoginPrivate>
+                </RegisterProvider>
               }
             />
             <Route
               exact
               path="/edit-profile"
               element={
-                <Private>
-                  <EditProfilePage />
-                </Private>
+                <EditProvider>
+                  <Private>
+                    <EditProfilePage />
+                  </Private>
+                </EditProvider>
               }
             />
           </Routes>

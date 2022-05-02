@@ -17,7 +17,7 @@ const createUser = async (data) => {
     const user = resultsSelect.rows[0];
 
     if (user) {
-      throw new Error('this user email is already registered!');
+      throw new Error('This email is already registered!');
     }
 
     const hash = bcrypt.hashSync(data.password, saltRounds);
@@ -29,7 +29,7 @@ const createUser = async (data) => {
       },
       process.env.JWT_SECRET,
       //FIXME raise the time to expire, 2min is only for testing
-      { expiresIn: 60 * 2 }
+      { expiresIn: 60 * 100 }
     );
 
     const queryInsert = `INSERT INTO public.users (username, email, password, birthdate, token, deleted) VALUES ($1, $2, $3, $4, $5, $6)`;

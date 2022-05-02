@@ -7,9 +7,9 @@ const validateInputs = async (req, res, next) => {
 
     const regex = {
       html: /<[^>]*(>|$)|&nbsp;|&zwnj;|&raquo;|&laquo;|&gt;/,
-      username: /^\w{4,}$/,
+      username: /^(?=.{6,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/,
       email: /^\w+([\.-]?\w+)+@\w+([\.:]?\w+)+(\.[a-zA-Z0-9]{2,4})+$/,
-      password: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+      password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,}$/,
       birthdate: /^([1-2][0-9]{3})-([0-9]{2})-([0-9]{2})$/,
     };
 
@@ -34,7 +34,7 @@ const validateInputs = async (req, res, next) => {
     const results = await client.query(query, [username]);
 
     if (results.rows[0]) {
-      throw new Error('this username already exists!');
+      throw new Error('This username already exists!');
     }
 
     await client.end();
