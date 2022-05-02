@@ -7,6 +7,7 @@ import EditProfilePage from "./pages/EditProfilePage";
 import RegisterPage from "./pages/RegisterPage";
 
 import { AuthProvider, AuthContext } from "./context/auth";
+import { RegisterProvider } from "./context/register";
 
 const AppRoutes = () => {
   const Private = ({ children }) => {
@@ -59,13 +60,16 @@ const AppRoutes = () => {
                 </LoginPrivate>
               }
             />
+
             <Route
               exact
               path="/register"
               element={
-                <LoginPrivate>
-                  <RegisterPage />
-                </LoginPrivate>
+                <RegisterProvider>
+                  <LoginPrivate>
+                    <RegisterPage />
+                  </LoginPrivate>
+                </RegisterProvider>
               }
             />
             <Route

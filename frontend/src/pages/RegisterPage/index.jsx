@@ -1,41 +1,40 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext } from 'react';
+import { RegisterContext } from '../../context/register';
 
-import StandardHeader from "../../components/headers/StandardHeader";
-
-import "./style.css";
+import StandardHeader from '../../components/headers/StandardHeader';
+import './style.css';
 
 function RegisterPage() {
-  const [fullname, setFullname] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [birthday, setBirthday] = useState("");
+  const { register, error } = useContext(RegisterContext);
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [birthdate, setBirthdate] = useState('');
 
-  const navigate = useNavigate();
-  
-  function handleSubmit(event) {
-    event.preventDefault();
+  function handleSubmit(e) {
+    e.preventDefault();
+    register(username, password, confirmPassword, email, birthdate);
   }
   return (
     <div className="page" id="register-page">
       <StandardHeader />
       <main>
         <h2>Register</h2>
+
         <form id="register-form">
           <div className="register-input-container">
             <input
               className="reg-input"
               type="text"
-              placeholder="Full Name"
-              onChange={(e) => setFullname(e.target.value)}
+              placeholder="Username"
+              onChange={(e) => setUsername(e.target.value)}
             />
             <input
               className="reg-input"
-              type="text"
-              placeholder="Username"
-              onChange={(e) => setUsername(e.target.value)}
+              type="email"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input
               className="reg-input"
@@ -51,23 +50,24 @@ function RegisterPage() {
             />
             <input
               className="reg-input"
-              type="email"
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              className="reg-input"
               type="text"
-              id="reg-birthday"
-              placeholder="Birthday"
-              onChange={(e) => setBirthday(e.target.value)}
-              onFocus={(e) => (e.target.type = "date")}
-              onBlur={(e) => (e.target.type = "text")}
+              id="reg-birthdate"
+              placeholder="Birthdate"
+              onChange={(e) => setBirthdate(e.target.value)}
+              onFocus={(e) => (e.target.type = 'date')}
+              onBlur={(e) => (e.target.type = 'text')}
             />
           </div>
           <div className="button-container">
-            <button id="send">Register</button>
+            <button type="submit" id="send" onClick={handleSubmit}>
+              Register
+            </button>
           </div>
+          {error && (
+            <div className="reg-error-container">
+              <p className="reg-error">{error}</p>
+            </div>
+          )}
           <p></p>
         </form>
       </main>
