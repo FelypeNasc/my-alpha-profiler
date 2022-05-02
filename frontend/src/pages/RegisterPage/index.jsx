@@ -1,39 +1,20 @@
 import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { RegisterContext } from '../../context/register';
 
 import StandardHeader from '../../components/headers/StandardHeader';
 import './style.css';
 
 function RegisterPage() {
-  console.log(useContext(RegisterContext));
-  const { register } = useContext(RegisterContext);
+  const { register, error } = useContext(RegisterContext);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [birthdate, setBirthdate] = useState('');
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
 
-  function handleSubmitRegister(event) {
-    event.preventDefault();
-
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-    } else {
-      register(username, password, email, birthdate);
-
-      setUsername('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
-      setBirthdate('');
-
-      navigate('/');
-
-      setError('');
-    }
+  function handleSubmit(e) {
+    e.preventDefault();
+    register(username, password, confirmPassword, email, birthdate);
   }
   return (
     <div className="page" id="register-page">
@@ -78,11 +59,15 @@ function RegisterPage() {
             />
           </div>
           <div className="button-container">
-            <button id="send" onSubmit={handleSubmitRegister}>
+            <button type="submit" id="send" onClick={handleSubmit}>
               Register
             </button>
           </div>
-          <div className="error-container">{error && <p className="error">{error}</p>}</div>
+          {error && (
+            <div className="reg-error-container">
+              <p className="reg-error">{error}</p>
+            </div>
+          )}
           <p></p>
         </form>
       </main>
