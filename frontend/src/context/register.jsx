@@ -1,7 +1,7 @@
 import React, { useState, createContext } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-// import registerValidate from "../modules/inputValidation";
+import registerValidate from '../modules/inputValidation';
 
 export const RegisterContext = createContext();
 
@@ -11,38 +11,48 @@ export const RegisterProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const register = (username, password, email, birthdate) => {
-    console.log('Register func');
-    //   const validation = registerValidate(username, password, email, birthdate);
-    //   if (validation.isValid) {
-    //     setIsLoading(true);
-    //     const apiUrl = "http://localhost:3001/";
-    //     fetch(apiUrl + "register", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({ username, password, email, birthdate }),
-    //     })
-    //       .then((response) => response.json())
-    //       .then((data) => {
-    //         if (data.token) {
-    //           localStorage.setItem("token", data.token);
-    //           localStorage.setItem("user", JSON.stringify(data.user));
-    //           setUser(data.user);
-    //           navigate("/");
-    //         }
-    //       })
-    //       .catch((error) => {
-    //         setError(error);
-    //       });
-    //   } else {
-    //     setError(validation.error);
-    //   }
+  const register = async (username, password, confirmPassword, email, birthdate) => {
+    const validation = registerValidate(username, password, confirmPassword, email, birthdate);
+    if (!!validation.isValid) {
+      setIsLoading(true);
+      setError(null);
+      const api = 'http://localhost:3001/';
+      try {
+        const response = await fetch(`${api}register`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            data: {
+              username,
+              password,
+              email,
+              birthdate,
+            },
+          }),
+        });
+        const data = await response.json();
+        if (data.error) {
+          throw new Error(data.error);
+        } else {
+          localStorage.setItem('user', JSON.stringify(data));
+          console.log(data);
+          setUser(data);
+          console.log(user);
+          setIsLoading(false);
+          navigate('/');
+        }
+      } catch (error) {
+        setError(error.message);
+      }
+    } else {
+      setError(validation.error);
+    }
   };
 
   return (
-    <RegisterContext.Provider value={{ register, user, error, isLoading }}>
+    <RegisterContext.Provider value={{ register, user, error, setError, isLoading }}>
       {children}
     </RegisterContext.Provider>
   );
