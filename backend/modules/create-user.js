@@ -17,7 +17,7 @@ const createUser = async (data) => {
     const user = resultsSelect.rows[0];
 
     if (user) {
-      throw new Error('this user email is already registered!');
+      throw new Error('This email is already registered!');
     }
 
     const hash = bcrypt.hashSync(data.password, saltRounds);
