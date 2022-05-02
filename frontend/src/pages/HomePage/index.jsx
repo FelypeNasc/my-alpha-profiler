@@ -50,7 +50,10 @@ function HomePage() {
           <h2 id="username">{userData.username}</h2>
           <p id="email">Email: {userData.email}</p>
           <p id="birthdate">
-            Birthdate: {new Date(userData.birthdate).toLocaleDateString('pt-br')}
+            Birthdate:{' '}
+            {new Date(userData.birthdate).toLocaleDateString('pt-br', {
+              timeZone: 'UTC',
+            })}
           </p>
         </div>
         <div className="navigate-buttons">
