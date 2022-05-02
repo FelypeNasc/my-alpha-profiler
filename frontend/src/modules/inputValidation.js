@@ -13,40 +13,50 @@ export function usernameValidate(username) {
   }
 }
 
-export function passwordValidate(password) {
+export function passwordValidate(password, confirmPassword) {
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\w\W]{8,}$/; // 8+ characters, at least one lowercase letter, one uppercase letter, one number, special characters allowed
-  if (passwordRegex.test(password)) {
+  if (password !== confirmPassword) {
     return {
-      isValid: true,
-      error: null,
+      isValid: false,
+      error: 'Passwords do not match',
     };
-  } else {
+  } else if (!passwordRegex.test(password)) {
     return {
       isValid: false,
       error:
-        'Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number',
+        'Password must be at least 8 characters, at least one lowercase letter, one uppercase letter, one number',
+    };
+  } else {
+    return {
+      isValid: true,
+      error: null,
     };
   }
 }
 
-export function emailValidate(email) {
+export function emailValidate(email, confirmEmail) {
   const emailRegex = /^\w+([\.-]?\w+)+@\w+([\.:]?\w+)+(\.[a-zA-Z0-9]{2,4})+$/; // eslint-disable-line
-  if (emailRegex.test(email)) {
+  if (email !== confirmEmail) {
     return {
-      isValid: true,
-      error: null,
+      isValid: false,
+      error: 'Passwords do not match',
     };
-  } else {
+  } else if (!emailRegex.test(email)) {
     return {
       isValid: false,
       error: 'Email address is not valid',
+    };
+  } else {
+    return {
+      isValid: true,
+      error: null,
     };
   }
 }
 
 export function birthdateValidate(birthdate) {
-  const birthdayRegex = /^\d{4}-\d{2}-\d{2}$/; // YYYY-MM-DD
-  if (birthdayRegex.test(birthdate)) {
+  const birthdateRegex = /^\d{4}-\d{2}-\d{2}$/; // YYYY-MM-DD
+  if (birthdateRegex.test(birthdate)) {
     return {
       isValid: true,
       error: null,
@@ -74,21 +84,38 @@ export function photoValidate(base64Photo) {
   }
 }
 
-export default function registerValidate(username, password, confirmPassword, email, birthdate) {
+export default function registerValidate(
+  username,
+  password,
+  confirmPassword,
+  email,
+  confirmEmail,
+  birthdate
+) {
   const usernameValidation = usernameValidate(username);
   const passwordValidation = passwordValidate(password, confirmPassword);
-  const emailValidation = emailValidate(email);
+  const emailValidation = emailValidate(email, confirmEmail);
   const birthdateValidation = birthdateValidate(birthdate);
   return {
     isValid:
       usernameValidation.isValid &&
-      passwordValidation.isValid &&
+      birthdateValidation.isValid &&
       emailValidation.isValid &&
-      birthdateValidation.isValid,
+      passwordValidation.isValid,
     error:
       usernameValidation.error ||
-      passwordValidation.error ||
+      birthdateValidation.error ||
       emailValidation.error ||
-      birthdateValidation.error,
+      passwordValidation.error,
+  };
+}
+
+export function editValidate(photo, password, confirmPassword, email, confirmEmail) {
+  const photoValidation = photoValidate(photo);
+  const passwordValidation = passwordValidate(password, confirmPassword);
+  const emailValidation = emailValidate(email, confirmEmail);
+  return {
+    isValid: photoValidation.isValid && passwordValidation.isValid && emailValidation.isValid,
+    error: photoValidation.error || passwordValidation.error || emailValidation.error,
   };
 }
