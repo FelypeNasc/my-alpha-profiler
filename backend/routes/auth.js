@@ -14,6 +14,8 @@ router.post('/', validateUser, async (req, res) => {
     res
       .cookie('token', token, {
         httpOnly: true,
+        sameSite: 'none',
+        secure: true,
       })
       .send(req.user.data);
   } catch (error) {

@@ -18,24 +18,41 @@ router.put('/', validateToken, async (req, res) => {
   const updates = [];
   Object.entries(data).forEach((entry, index, array) => {
     if (index === array.length - 1) {
-      updates.push(` ${entry[0]}='${entry[1]}' `);
+      if (entry[1]) updates.push(` ${entry[0]}='${entry[1]}' `);
     } else {
-      updates.push(` ${entry[0]}='${entry[1]}'`);
+      if (entry[1]) updates.push(` ${entry[0]}='${entry[1]}'`);
     }
   });
 
   try {
     await client.connect();
-    const queryInsert = `UPDATE public.users SET ${updates.join()} WHERE username=$1;`;
+
+    console.log(data);
+    console.log(updates);
+
+    if (data.email) {
+      const querySelect = `SELECT email FROM public.users WHERE email=$1`;
+      const { rows } = await client.query(querySelect, [data.email]);
+
+      if (rows[0]) {
+        throw new Error('This email is already registered!');
+      }
+    }
+
+    const queryInsert = `UPDATE public.users SET ${updates.join()} WHERE username=$1 RETURNING username, email, photo, birthdate;`;
     const values = [data.username];
 
-    await client.query(queryInsert, values);
+    const { rows } = await client.query(queryInsert, values);
+
+    console.log('rows');
+    console.log(rows);
+
+    res.send(rows[0]);
   } catch (error) {
     console.error(error);
     await client.query('ROLLBACK');
-    res.send('Problemas ocorreram, Rollback realizado');
+    res.status(error.code || 401).send({ error: error.message });
   } finally {
-    res.send('Dados atualizados');
     await client.end();
   }
 });
