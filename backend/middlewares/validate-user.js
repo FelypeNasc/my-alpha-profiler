@@ -9,7 +9,7 @@ const validateUser = async (req, res, next) => {
 
   try {
     if (!req.body.data || !req.body.data.username || !req.body.data.password) {
-      throw new Error('unsufficient inputs!');
+      throw new Error('Unsufficient inputs!');
     }
 
     const query = `SELECT * FROM public.users WHERE username=$1 AND deleted IS NOT TRUE`;
@@ -18,13 +18,13 @@ const validateUser = async (req, res, next) => {
     const user = results.rows[0];
 
     if (!user) {
-      throw new Error('the user is not registered!');
+      throw new Error('The user is not registered!');
     }
 
     const match = await bcrypt.compare(req.body.data.password, user.password);
 
     if (!match) {
-      throw new Error('wrong password!');
+      throw new Error('Wrong password!');
     }
 
     req.user = {
