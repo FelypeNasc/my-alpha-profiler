@@ -63,8 +63,8 @@ export const EditProvider = ({ children }) => {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
+            credentials: 'include',
           },
-          credentials: 'include',
           body: JSON.stringify({
             data: {
               username: user.username,
